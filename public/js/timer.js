@@ -1,22 +1,22 @@
 paired_data = [];
-var but2 = document.getElementById("timer-button-2")
-var but3 = document.getElementById("timer-button-3")
+var but2 = document.getElementById("timer-button-2")//button 2
+var but3 = document.getElementById("timer-button-3")// button 3
 //Loads assigment data
 function refresh_data () {
     if(localStorage.getItem("data")!= null){
       data = localStorage.getItem("data");
-      data = JSON.parse(data);
+      data = JSON.parse(data);//make data readable
       for (var i=0; i<data.assignments.length; i++) {
         if(data.assignments[i]+""==""){
 
         }else{
         paired_data.push({
           assignment : data.assignments[i],
-          days_till_due : data.days_till_due[i]
+          days_till_due : data.days_till_due[i]//retrieve data
         });
       }
       }
-
+      //bubble sort
       sorted_status = false;
 
       while (sorted_status==false) {
@@ -35,11 +35,13 @@ function refresh_data () {
       }
     }
 };
+//clearing all data
 function cleardata(){
   //paired_data = [];
   localStorage.clear();
   return 0;
 }
+//list assignments on console
 function listassign(){
   console.log(paired_data);
 }
@@ -60,7 +62,7 @@ var paused = false;
   var state = 0;
   var running = false;
   var inter = false;//True when on select mode
-  var cont = null;
+  var cont = null;//continue looping?
   but3.style.visibility = "hidden"
 //initialization of next timer
   function init(cont){
@@ -69,14 +71,15 @@ var paused = false;
       var time = 300;
       if(state == 0){
           //console.log("aaa");
-          //assigment
+          //assigments
           if(paired_data[0] == null){
             running = false;
             assignment_display.innerHTML = "All Done!"
           }else{
+            //display
           assignment_display.innerHTML = "'" + paired_data[0].assignment + "'";
         }
-          //
+          //next step
 
           state = 1
           time = 5;
@@ -162,7 +165,7 @@ function main_loop () {
   button.innerHTML = "Pause"
   timer = document.getElementById("timer");
   //Preperation time
-  countdown = 1;
+  countdown = 5;
   state = 0;
   running = true;
   setInterval(loop,1000);
