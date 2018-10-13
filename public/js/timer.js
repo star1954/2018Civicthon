@@ -78,11 +78,12 @@ function displaytime(t, pause = false){
 function displayassignment(input){
     timer_assignment.innerHTML = "'" + input + "'";
 }
-
+var testing = false;
 var state = "init"
 var time = 10;
-var worktime = 0.1*60
-var resttime = 0.1*60
+var worktime = 25*60
+var resttime = 5*60
+if(testing){worktime = 5; resttime = 5;}
 function init(){
 }
 
@@ -168,6 +169,10 @@ function button2(){
     break;
     case "pausebreak":
     state = "break";
+    break;
+    case "waiting":
+    state = "running";
+    time = worktime;
     break;
   }
 }
