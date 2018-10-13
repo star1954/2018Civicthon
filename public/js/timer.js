@@ -47,7 +47,7 @@ function listassign(){
 }
 loadInputInfo();
 //Functions
-var paused = false;
+//var paused = false;
 //conversion between seconds and minutes
   function second_minute(i){
       var x = i;
@@ -58,34 +58,91 @@ var paused = false;
     }
     return([y,x]);
   }
-
-function displaytime(t){
+  function timezeros(time){
+    var output = "";
+    if(time<10){
+      output = "0"+ time;
+    }else{
+      output = time;
+    }
+    return(output);
+  };
+function displaytime(t, pause = false){
   var time = second_minute(t);
   var minute = timezeros(time[0]);
   var second = timezeros(time[1]);
-  timer.innerHTML = minute + " : " + second;
+  var asdf = "";
+  if(pause){asdf = "[PAUSED]"}
+  timer.innerHTML = asdf+""+minute + " : " + second;
 }
 function displayassignment(input){
-    assignment_display.innerHTML = "'" + input + "'";
+    timer_assignment.innerHTML = "'" + input + "'";
 }
 
 var state = "init"
 var time = 10;
+var worktime = 25*60
+var resttime = 5*60
+function init(){
+}
+
+
 
 function loop(){
-  displaytime(time)
-  displayassignment(paired_data[0].assignment)
+  switch(state){
+    case "init":
+    but2.innerHTML = "Start";
+    but3.style.visibility = "hidden";
+    break;
+
+    case "running":
+    displaytime(time);
+    displayassignment(paired_data[0].assignment);
+    if(time<0){state = "endofwork"}
+    time--;
+    but2.innerHTML = "Pause"
+    break;
+
+    case "paused":
+    displaytime(time,true);
+    displayassignment(paired_data[0].assignment);
+    but2.innerHTML = "Play"
+    break;
+
+    case "endofwork":
+    but2.innerHTML = "Not Done";
+    but3.innterHTML = "Done";
+    but3.style.visibility = "initial";
+    break;
+
+  }
 }
 
 
 function button2(){
-
+  switch(state){
+    case "init":
+    state = "running";
+    time = worktime;
+    break;
+    case "running":
+    state = "paused";
+    break;
+    case "paused":
+    state = "running";
+    break;
+    case "endofwork":
+    state = "break";
+    break;
+  }
 }
 
 function button3(){
-
+  state = "break";
 }
 
+function main_loop(){setInterval(loop,1000);}
+window.onLoad = main_loop();
 but2.addEventListener("click", button2);
 
 but3.addEventListener("click", button3);
