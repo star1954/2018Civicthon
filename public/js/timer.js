@@ -81,8 +81,8 @@ function displayassignment(input){
 
 var state = "init"
 var time = 10;
-var worktime = 25*60
-var resttime = 5*60
+var worktime = 0.1*60
+var resttime = 0.1*60
 function init(){
 }
 
@@ -113,9 +113,26 @@ function loop(){
     but2.innerHTML = "Not Done";
     but3.innterHTML = "Done";
     but3.style.visibility = "initial";
+    timer_assignment.innerHTML = "Done?"
+    displaytime(0);
     break;
 
+    case "break":
+    but2.innerHTML = "Pause";
+    but3.style.visibility = "hidden";
+    timer_assignment.innerHTML = "Break";
+    displaytime(time);
+    time--;
+    break;
+
+    case "pausebreak":
+    but2.innerHTML = "Play";
+    timer_assignment.innerHTML = "Break";
+    displaytime(time,true);
+    break;
   }
+
+  if(state === "endofwork"){displaytime(0);}
 }
 
 
@@ -132,6 +149,13 @@ function button2(){
     state = "running";
     break;
     case "endofwork":
+    state = "break";
+    time = resttime;
+    break;
+    case "break":
+    state = "pausebreak";
+    break;
+    case "pausebreak":
     state = "break";
     break;
   }
