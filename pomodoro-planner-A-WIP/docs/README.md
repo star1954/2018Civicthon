@@ -1,1 +1,0 @@
-Because the current version as of 10-29-17 is completely static with Node.js & Express.js simply being there in case any expansion occurs, I implemented this static version into Github pages into this directory.
