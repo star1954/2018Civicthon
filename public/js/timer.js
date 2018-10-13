@@ -58,142 +58,30 @@ var paused = false;
     }
     return([y,x]);
   }
-  var countdown = 1;
-  var state = 0;
-  var running = false;
-  var inter = false;//True when on select mode
-  var cont = null;//continue looping?
-  but3.style.visibility = "hidden"
-//initialization of next timer
-  function init(cont){
-    cleardata();
-    saveInputInfo();
-      var time = 300;
-      if(state == 0){
-          //console.log("aaa");
-          //assigments
-          if(paired_data[0] == null){
-            running = false;
-            assignment_display.innerHTML = "All Done!"
-          }else{
-            //display
-          assignment_display.innerHTML = "'" + paired_data[0].assignment + "'";
-        }
-          //next step
 
-          state = 1
-          time = 5;
-      }else if(cont){
-        assignment_display.innerHTML = "'" + "Break Time!" + "'";
-        inter = true;
-        state = 0;
-      }else{
-        assignment_display.innerHTML = "'" + "Break Time!" + "'";
-        inter = true;
-          paired_data.shift();
-          state = 0;
-      }
-      countdown = time;
-      refresh_data();
-  }
-
-  //normalizes time, makes weird things like 0:4 into 00:04
-function timezeros(time){
-  var output = "";
-  if(time<10){
-    output = "0"+ time;
-  }else{
-    output = time;
-  }
-  return(output);
-};
-
-//displays the time(an array with minutes then seconds)
 function displaytime(t){
   var time = second_minute(t);
   var minute = timezeros(time[0]);
   var second = timezeros(time[1]);
   timer.innerHTML = minute + " : " + second;
 }
-
-//updates timer
-  function update(){
-    if(!paused&&!inter){
-      countdown--;
-      displaytime(countdown);
-      if(countdown<1){
-          return 1;
-      }
-    }else{
-      timer.innerHTML = "PAUSED"
-    }
-      return 0;
-  }
-
-/******************************************************************************
-                                Main Program
-*******************************************************************************/
-
-
-//loop that keeps running once every second
-  function loop(){
-    if(running){
-      if(update()){
-          init(cont);
-          if(cont == true){
-            cont = false;
-          }
-          if(inter == true){
-            but2.innerHTML = "Not Done";
-            but3.style.visibility = "initial";
-            but3.innerHTML = "Done";
-          }else{
-            but2.innerHtml = "Pause";
-            but3.style.visibility = "hidden";
-          }
-      }
-    }else{
-      //console.log("stop");
-    }
-  }
-function main_loop () {
-  //console.log("init");
-  refresh_data();
-  assignment_display = document.getElementById("timer_assignment");
-  assignment_display.innerHTML = "'" + "Get Ready!" + "'";
-  button = document.getElementById("timer-button-2");
-  button.innerHTML = "Pause"
-  timer = document.getElementById("timer");
-  //Preperation time
-  countdown = 5;
-  state = 0;
-  running = true;
-  setInterval(loop,1000);
+function displayassignment(input){
+    assignment_display.innerHTML = "'" + input + "'";
 }
 
-//pauses timer
-function pause(){
-  if(paused){
-    paused = false;
-  }else{
-    paused = true;
-  }
+var state = "init"
+function loop(){
+  displaytime()
+
 }
+
 
 function button2(){
-  if(!running){
-    main_loop();
-  }else if(inter){
-    cont = true;
-    inter = false;
-  }else{
-    pause();
-  }
+
 }
 
 function button3(){
-  cont = false;
-  inter = false;
+
 }
 
 but2.addEventListener("click", button2);
