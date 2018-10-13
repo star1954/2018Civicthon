@@ -70,9 +70,11 @@ function displayassignment(input){
 }
 
 var state = "init"
-function loop(){
-  displaytime()
+var time = 10;
 
+function loop(){
+  displaytime(time)
+  displayassignment(paired_data[0].assignment)
 }
 
 
