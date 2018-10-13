@@ -123,12 +123,23 @@ function loop(){
     timer_assignment.innerHTML = "Break";
     displaytime(time);
     time--;
+    if(time<0){state = "endofbreak"}
     break;
 
     case "pausebreak":
     but2.innerHTML = "Play";
     timer_assignment.innerHTML = "Break";
     displaytime(time,true);
+    break;
+
+    case "endofbreak":
+    state = "waiting"
+    break;
+
+    case "waiting":
+    but2.innerHTML = "Start";
+    displayassignment(paired_data[0].assignment);
+    timer.innerHTML = "Ready?";
     break;
   }
 
