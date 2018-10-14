@@ -41,3 +41,5 @@ function createDocument(id,data1, data2){
   });
 }
 }
+function asdf(){console.log("123" );}
+window.onLoad(asdf);
