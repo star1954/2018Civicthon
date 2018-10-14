@@ -37,7 +37,9 @@ function createDocument(id,data1, data2){
   }, function(err, result) {
 
     console.log("Inserted a document into the collection");
-    callback(result);
+    return result;
   });
 }
 }
+function asdf(){console.log("123" );}
+window.onLoad(asdf);
