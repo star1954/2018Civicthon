@@ -3,6 +3,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta name="google-signin-client_id" content="604754270691-acmmpkhm9v74553umde0qgv688d4dhop.apps.googleusercontent.com>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <title>Homeworganizer</title>
 
   <!-- CSS  -->
@@ -13,6 +15,7 @@
 
 <body>
   <!-- Intro  -->
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
   <nav class="deep-orange" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="https://image.flaticon.com/icons/svg/184/184540.svg" alt="tomato" width="60" height="60"/></a>
     </div>
@@ -31,7 +34,8 @@
       <br><br><br><br>
     </div>
   </div>
-
+  <br>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
   <!--Assignments-->
   <div class="divider"></div>
   <div class="container">
@@ -100,7 +104,7 @@
   </div>
   <br><br><br><br><br><br>
 </div>
-
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
   <!-- Footer  -->
   <footer class="page-footer deep-orange">
     <div class="container">
@@ -143,9 +147,7 @@
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="js/inputManager.js"></script>
-  <script src="js/mongo.js"></script>
   <script src="js/timer.js"></script>
-
 
 
   </body>
