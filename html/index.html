@@ -2,17 +2,44 @@
 <!DOCTYPE html>
 <html>
 <head>
- <title>Homeworganizer</title>
- <link rel="stylesheet" type="text/css" href="styling.css">
- <link rel="stylesheet" type="text/javascript" href="scripts.js">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta name="google-signin-client_id" content="604754270691-acmmpkhm9v74553umde0qgv688d4dhop.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <title>Homeworganizer</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="public/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="public/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 
-
-<body>  
- <h2 class="titlehead">Welcome to Homeworganizer!</h2>
+<body>
+  <!-- Intro  -->
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <nav class="deep-orange" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="https://image.flaticon.com/icons/svg/184/184540.svg" alt="tomato" width="60" height="60"/></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center black-text">Welcome to Homeworganizer!</h1>
+      <br>
+      <div class="row center">
+        <a id="logo-container" href="#" class="brand-logo"><img src="https://lh4.ggpht.com/eaKKhSXDW7JHsMhJnW4UOxl6V_AifpnPTgHjtW6LmJGC5edHW4jPfJBuujzknTCoQA=w300" alt="tomato2" width="250" height="250"/></a>
+        <h5 class="header col s12 light">Homeworganizer is an application designed to help all students alike organize their work in a simple, designated area.</h5>
+        <br><br><br><br><br><br>
+        <h3 class="header col s12 light">To get started scroll below!</h3>
+      </div>
+      <br><br><br><br>
+    </div>
+  </div>
   <br>
- <h3 class="desc">Homeworganizer is a simple, yet efficient source to organize <br> all of your homework and/or classwork in one place.</h3>
- <form action="action_page.php" style="border:1px solid #ccc">
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <!--Assignments-->
+  <div class="divider"></div>
+
   <div class="container">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
@@ -38,7 +65,54 @@
       <button type="submit" class="signupbtn">Sign Up</button>
     </div>
   </div>
-</form>
-</body>
 
+  <br><br><br><br><br><br>
+</div>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <!-- Footer  -->
+  <footer class="page-footer deep-orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About</h5>
+          <p class="grey-text text-lighten-4">This application was made at SF TeenTech Civil Hackathon.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Creators</h5>
+          <ul>
+            <li>Andrew Wang</li>
+            <li>Nithin Danday</li>
+            <li>Nicholas Burney</li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="https://mlh.io/">MLH</a></li>
+            <li><a class="white-text" href="https://aws.amazon.com/">AWS</a></li>
+            <li><a class="white-text" href="https://github.com/">Github</a></li>
+            <li><a class="white-text" href="https://slack.com/">Slack</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Homeworganizer
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/inputManager.js"></script>
+  <script src="js/timer.js"></script>
+
+
+  </body>
 </html>
