@@ -1,22 +1,22 @@
 paired_data = [];
-var but2 = document.getElementById("timer-button-2")
-var but3 = document.getElementById("timer-button-3")
+var but2 = document.getElementById("timer-button-2")//button 2
+var but3 = document.getElementById("timer-button-3")// button 3
 //Loads assigment data
 function refresh_data () {
     if(localStorage.getItem("data")!= null){
       data = localStorage.getItem("data");
-      data = JSON.parse(data);
+      data = JSON.parse(data);//make data readable
       for (var i=0; i<data.assignments.length; i++) {
         if(data.assignments[i]+""==""){
 
         }else{
         paired_data.push({
           assignment : data.assignments[i],
-          days_till_due : data.days_till_due[i]
+          days_till_due : data.days_till_due[i]//retrieve data
         });
       }
       }
-
+      //bubble sort
       sorted_status = false;
 
       while (sorted_status==false) {
@@ -35,17 +35,19 @@ function refresh_data () {
       }
     }
 };
+//clearing all data
 function cleardata(){
   //paired_data = [];
   localStorage.clear();
   return 0;
 }
+//list assignments on console
 function listassign(){
   console.log(paired_data);
 }
 loadInputInfo();
 //Functions
-var paused = false;
+//var paused = false;
 //conversion between seconds and minutes
   function second_minute(i){
       var x = i;
@@ -56,143 +58,131 @@ var paused = false;
     }
     return([y,x]);
   }
-  var countdown = 1;
-  var state = 0;
-  var running = false;
-  var inter = false;//True when on select mode
-  var cont = null;
-  but3.style.visibility = "hidden"
-//initialization of next timer
-  function init(cont){
-    cleardata();
-    saveInputInfo();
-      var time = 300;
-      if(state == 0){
-          //console.log("aaa");
-          //assigment
-          if(paired_data[0] == null){
-            running = false;
-            assignment_display.innerHTML = "All Done!"
-          }else{
-          assignment_display.innerHTML = "'" + paired_data[0].assignment + "'";
-        }
-          //
-
-          state = 1
-          time = 5;
-      }else if(cont){
-        assignment_display.innerHTML = "'" + "Break Time!" + "'";
-        inter = true;
-        state = 0;
-      }else{
-        assignment_display.innerHTML = "'" + "Break Time!" + "'";
-        inter = true;
-          paired_data.shift();
-          state = 0;
-      }
-      countdown = time;
-      refresh_data();
-  }
-
-  //normalizes time, makes weird things like 0:4 into 00:04
-function timezeros(time){
-  var output = "";
-  if(time<10){
-    output = "0"+ time;
-  }else{
-    output = time;
-  }
-  return(output);
-};
-
-//displays the time(an array with minutes then seconds)
-function displaytime(t){
+  function timezeros(time){
+    var output = "";
+    if(time<10){
+      output = "0"+ time;
+    }else{
+      output = time;
+    }
+    return(output);
+  };
+function displaytime(t, pause = false){
   var time = second_minute(t);
   var minute = timezeros(time[0]);
   var second = timezeros(time[1]);
-  timer.innerHTML = minute + " : " + second;
+  var asdf = "";
+  if(pause){asdf = "[PAUSED]"}
+  timer.innerHTML = asdf+""+minute + " : " + second;
+}
+function displayassignment(input){
+    timer_assignment.innerHTML = "'" + input + "'";
+}
+var testing = false;
+var state = "init"
+var time = 10;
+var worktime = 25*60
+var resttime = 5*60
+if(testing){worktime = 5; resttime = 5;}
+function init(){
 }
 
-//updates timer
-  function update(){
-    if(!paused&&!inter){
-      countdown--;
-      displaytime(countdown);
-      if(countdown<1){
-          return 1;
-      }
-    }else{
-      timer.innerHTML = "PAUSED"
-    }
-      return 0;
+
+
+function loop(){
+  switch(state){
+    case "init":
+    but2.innerHTML = "Start";
+    but3.style.visibility = "hidden";
+    break;
+
+    case "running":
+    displaytime(time);
+    displayassignment(paired_data[0].assignment);
+    if(time<0){state = "endofwork"}
+    time--;
+    but2.innerHTML = "Pause"
+    break;
+
+    case "paused":
+    displaytime(time,true);
+    displayassignment(paired_data[0].assignment);
+    but2.innerHTML = "Play"
+    break;
+
+    case "endofwork":
+    but2.innerHTML = "Not Done";
+    but3.innterHTML = "Done";
+    but3.style.visibility = "initial";
+    timer_assignment.innerHTML = "Done?"
+    displaytime(0);
+    break;
+
+    case "break":
+    but2.innerHTML = "Pause";
+    but3.style.visibility = "hidden";
+    timer_assignment.innerHTML = "Break";
+    displaytime(time);
+    time--;
+    if(time<0){state = "endofbreak"}
+    break;
+
+    case "pausebreak":
+    but2.innerHTML = "Play";
+    timer_assignment.innerHTML = "Break";
+    displaytime(time,true);
+    break;
+
+    case "endofbreak":
+    state = "waiting"
+    break;
+
+    case "waiting":
+    but2.innerHTML = "Start";
+    displayassignment(paired_data[0].assignment);
+    timer.innerHTML = "Ready?";
+    break;
   }
 
-/******************************************************************************
-                                Main Program
-*******************************************************************************/
-
-
-//loop that keeps running once every second
-  function loop(){
-    if(running){
-      if(update()){
-          init(cont);
-          if(cont == true){
-            cont = false;
-          }
-          if(inter == true){
-            but2.innerHTML = "Not Done";
-            but3.style.visibility = "initial";
-            but3.innerHTML = "Done";
-          }else{
-            but2.innerHtml = "Pause";
-            but3.style.visibility = "hidden";
-          }
-      }
-    }else{
-      //console.log("stop");
-    }
-  }
-function main_loop () {
-  //console.log("init");
-  refresh_data();
-  assignment_display = document.getElementById("timer_assignment");
-  assignment_display.innerHTML = "'" + "Get Ready!" + "'";
-  button = document.getElementById("timer-button-2");
-  button.innerHTML = "Pause"
-  timer = document.getElementById("timer");
-  //Preperation time
-  countdown = 1;
-  state = 0;
-  running = true;
-  setInterval(loop,1000);
+  if(state === "endofwork"){displaytime(0);}
 }
 
-//pauses timer
-function pause(){
-  if(paused){
-    paused = false;
-  }else{
-    paused = true;
-  }
-}
 
 function button2(){
-  if(!running){
-    main_loop();
-  }else if(inter){
-    cont = true;
-    inter = false;
-  }else{
-    pause();
+  switch(state){
+    case "init":
+    state = "running";
+    time = worktime;
+    break;
+    case "running":
+    state = "paused";
+    break;
+    case "paused":
+    state = "running";
+    break;
+    case "endofwork":
+    state = "break";
+    time = resttime;
+    break;
+    case "break":
+    state = "pausebreak";
+    break;
+    case "pausebreak":
+    state = "break";
+    break;
+    case "waiting":
+    state = "running";
+    time = worktime;
+    break;
   }
 }
 
 function button3(){
-  cont = false;
-  inter = false;
+  state = "break";
 }
 
+function main_loop(){setInterval(loop,1000);}
+window.onLoad = main_loop();
 but2.addEventListener("click", button2);
 
 but3.addEventListener("click", button3);
