@@ -14,7 +14,13 @@
 
 <body>
   <!-- Intro  -->
-  
+
+<script>
+  function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+  }
+
+</script>
   <nav class="deep-orange" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="https://image.flaticon.com/icons/svg/184/184540.svg" alt="tomato" width="60" height="60"/></a>
     </div>
@@ -22,6 +28,7 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
       <h1 class="header center black-text">Welcome to Homeworganizer!</h1>
       <br>
       <div class="row center">
@@ -148,11 +155,12 @@
 
 
  <!--  Scripts-->
+  <!--<script src="js/mongo.js"></script>-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="/public/js/materialize.js"></script>
-  <script src="/public/js/init.js"></script>
-  <script src="/public/js/inputManager.js"></script>
-  <script src="/public/js/timer.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/inputManager.js"></script>
+  <script src="js/timer.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 

@@ -1,5 +1,5 @@
 const uri = "mongodb+srv://star1954:andyew1954@cluster0-8ep93.mongodb.net/test?retryWrites=true"
-var mongoClient = require('mongodb').MongoClient;
+var mongoClient = require("mongodb").MongoClient;
 MongoClient.connect(uri, function(err, client) {
    const loginData = client.db("userData").collection("loginData");
    // perform actions on the collection object
@@ -31,13 +31,12 @@ function createDocument(id,data1, data2){
   // Get the documents collection
   // Insert some documents
   loginData.insert( {
-    id: id
-    data1: data1
+    id: id,
+    data1: data1,
     data2: data2
   }, function(err, result) {
 
     console.log("Inserted a document into the collection");
     return result;
   });
-}
 }
