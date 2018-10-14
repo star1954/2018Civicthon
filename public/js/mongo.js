@@ -21,11 +21,23 @@ function findDocument(value,id) {
 }
 
 function updateDocument(value,id){
-  collection.updateOne({ $set: { value : id } }, function(err, result) {
+  loginData.updateOne({ $set: { value : id } }, function(err, result) {
     console.log("Updated the document with the value(s)");
     return(result);
   });
 }
-function createDocument(id,data,data){
-  
+
+function createDocument(id,data1, data2){
+  // Get the documents collection
+  // Insert some documents
+  loginData.insert( {
+    id: id
+    data1: data1
+    data2: data2
+  }, function(err, result) {
+
+    console.log("Inserted a document into the collection");
+    callback(result);
+  });
+}
 }
