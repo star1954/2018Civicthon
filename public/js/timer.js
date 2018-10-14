@@ -3,7 +3,8 @@ var but2 = document.getElementById("timer-button-2")//button 2
 var but3 = document.getElementById("timer-button-3")// button 3
 //Loads assigment data
 function refresh_data () {
-    if(localStorage.getItem("data")!= null){
+  
+    /*if(localStorage.getItem("data")!= null){
       data = localStorage.getItem("data");
       data = JSON.parse(data);//make data readable
       for (var i=0; i<data.assignments.length; i++) {
@@ -15,7 +16,8 @@ function refresh_data () {
           days_till_due : data.days_till_due[i]//retrieve data
         });
       }
-      }
+    }*/
+
       //bubble sort
       sorted_status = false;
 
