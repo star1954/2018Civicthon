@@ -26,5 +26,6 @@ function updateDocument(value,id){
     return(result);
   });
 }
-
-function createDocument(id,data,data)
+function createDocument(id,data,data){
+  
+}
